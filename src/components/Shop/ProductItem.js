@@ -1,22 +1,26 @@
+import { useDispatch } from 'react-redux';
 
+import { cartActions } from '../../store/cart-slice';
 import Card from '../UI/Card';
 import classes from './ProductItem.module.css';
-import { useSelector,useDispatch } from 'react-redux';
-import { cartItemAction } from '../../store';
 
 const ProductItem = (props) => {
-  const { title, price, description } = props;
+  const dispatch = useDispatch();
 
-  useSelector(state => state.cartItem.itemList)
- useSelector(state => state.cartItem.cartNumber)
-  const dispatch = useDispatch()
+  const { title, price, description, id } = props;
 
-  function clickHandler()
-  {
-    console.log('add to cart clicked')
-    dispatch(cartItemAction.increaseQTY())
-    
-  }
+  const addToCartHandler = () => {
+    // and then send Http request
+    // fetch('firebase-url', { method: 'POST', body: JSON.stringify(newCart) })
+
+    dispatch(
+      cartActions.addItemToCart({
+        id,
+        title,
+        price,
+      })
+    );
+  };
 
   return (
     <li className={classes.item}>
@@ -27,7 +31,7 @@ const ProductItem = (props) => {
         </header>
         <p>{description}</p>
         <div className={classes.actions}>
-          <button onClick={clickHandler}>Add to Cart</button>
+          <button onClick={addToCartHandler}>Add to Cart</button>
         </div>
       </Card>
     </li>
