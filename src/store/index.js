@@ -14,10 +14,38 @@ const cartSlice = createSlice({
     }
 })
 
+const cartItemSlice = createSlice(
+    {
+        name:'cartItem',
+        initialState:{itemsList:[], cartNumber:0},
+        reducers:{
+            addItem(state,action)
+            {
+                state.itemsList.push(action.payload.obj);
+                
+            },
+            removeItem(state)
+            {
+
+            },
+            increaseQTY(state)
+            {
+                state.cartNumber++;
+            },
+            decreaseQTY(state)
+            {
+                state.cartNumber--;
+            }
+
+        }
+    }
+)
+
 const store = configureStore({
-    reducer:{cart:cartSlice.reducer}
+    reducer:{cart:cartSlice.reducer, cartItem:cartItemSlice.reducer}
 })
 
 export const cartAction = cartSlice.actions
+export const cartItemAction = cartItemSlice.actions
 
 export default store;

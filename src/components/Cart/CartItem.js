@@ -1,7 +1,27 @@
+
+import { cartItemAction } from '../../store';
 import classes from './CartItem.module.css';
+import { useSelector,useDispatch } from 'react-redux';
 
 const CartItem = (props) => {
   const { title, quantity, total, price } = props.item;
+
+ const num = useSelector(state => state.cartItem.cartNumber)
+  const dispatch = useDispatch()
+
+  function addQty()
+  {
+    dispatch(cartItemAction.increaseQTY())
+  }
+
+  function minusQTY()
+  {
+    if(num ===0)
+    {
+      return
+    }
+    dispatch(cartItemAction.decreaseQTY())
+  }
 
   return (
     <li className={classes.item}>
@@ -17,8 +37,8 @@ const CartItem = (props) => {
           x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
-          <button>-</button>
-          <button>+</button>
+          <button onClick={minusQTY}>-</button>
+          <button onClick={addQty}>+</button>
         </div>
       </div>
     </li>
