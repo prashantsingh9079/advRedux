@@ -8,6 +8,7 @@ const Cart = (props) => {
 
   const cartState = useSelector(state=>state.cart.show)
   const num = useSelector(state => state.cartItem.cartNumber)
+  const amountCal = num*6
   var checkNum
   if(num >0)
   {
@@ -26,7 +27,7 @@ const Cart = (props) => {
       <ul>
       
         {cartState && checkNum  && <CartItem
-          item={{ title: 'Test Item', quantity: cartNumber, total: 18, price: 6 }}
+          item={{ title: 'Test Item', quantity: cartNumber, total: amountCal, price: 6 }}
         />}
         {!cartState && !checkNum && <p><i>empty cart</i></p>}
       </ul>
